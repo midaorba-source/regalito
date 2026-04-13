@@ -1,1 +1,220 @@
-# regalito
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para ti ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: #f4d6d0;
+    overflow: hidden;
+}
+
+/* 🔵 PÁGINAS CENTRADAS */
+.page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🔥 TEXTO PRESIONA */
+.press-text {
+    color: #fff;
+    font-size: clamp(20px, 3vw, 40px);
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    animation: pulse 1s infinite;
+    text-align: center;
+    text-shadow:
+        0 0 6px rgba(0,0,0,0.6),
+        0 0 12px rgba(0,0,0,0.4);
+}
+
+/* ❤️ CORAZÓN MÁS GRANDE */
+.heart-wrapper {
+    position: relative;
+    width: clamp(260px, 26vw, 380px);
+    height: clamp(260px, 26vw, 380px);
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart {
+    font-size: clamp(260px, 26vw, 380px);
+    color: #ff4da6;
+    text-shadow: 0 0 25px #ff4da6;
+    animation: pulse 1s infinite;
+}
+
+/* 💓 ANIMACIÓN */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+/* 🖼️ FOTO FINAL (PAGE 1) */
+.final-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    display: none;
+}
+
+/* 🖼️ CONTENEDOR */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* IMÁGENES */
+img {
+    width: clamp(80px, 12vw, 140px);
+    height: clamp(80px, 12vw, 140px);
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 0.4s ease;
+}
+
+.img-left { transform: translateX(-40px); }
+.img-right { transform: translateX(40px); }
+
+/* 💖 + */
+.container span {
+    color: #ff4da6;
+    font-size: clamp(40px, 5vw, 70px);
+    font-weight: 900;
+    text-shadow: 0 0 25px #ff4da6;
+    animation: pulse 1s infinite;
+}
+
+/* 📄 SEGUNDA PÁGINA */
+.page2 {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+/* 🖼️ IMAGEN 3 CORREGIDA */
+.page2 img {
+    width: min(70vw, 420px);
+    height: auto;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.25);
+    margin-bottom: 25px;
+}
+
+/* 🔎 BOTÓN */
+.search-box {
+    background: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 700;
+    color: #ff4da6;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+
+.search-box:hover {
+    transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔵 PÁGINA 1 -->
+<div id="page1" class="page">
+
+    <div class="press-text">PRESIONA</div>
+
+    <div class="heart-wrapper">
+        <div class="heart" id="heart">♡</div>
+        <img class="final-photo" id="finalPhoto" src="./corazon.jpg">
+    </div>
+
+    <div class="container">
+        <img class="img-left" src="./1.jpg.png">
+        <span>+</span>
+        <img class="img-right" src="./2.jpg.png">
+    </div>
+
+</div>
+
+<!-- 💗 PÁGINA 2 -->
+<div id="page2" class="page2">
+
+    <img src="./3.jpg.png" alt="imagen final">
+
+    <div class="search-box" onclick="openMusic()">
+        💖 TE DEDICO ESTA CANCIÓN
+    </div>
+
+</div>
+
+<script>
+let move = 0;
+let clicks = 0;
+
+const step = 10;
+const maxClicks = 10;
+
+const heart = document.getElementById("heart");
+const finalPhoto = document.getElementById("finalPhoto");
+
+const imgLeft = document.querySelector(".img-left");
+const imgRight = document.querySelector(".img-right");
+
+const page1 = document.getElementById("page1");
+const page2 = document.getElementById("page2");
+
+/* 🎵 LINK */
+function openMusic() {
+    window.open("https://www.youtube.com/watch?v=r_AXLLCD8Ds&list=RDr_AXLLCD8Ds&start_radio=1", "_blank");
+}
+
+document.body.addEventListener("click", () => {
+
+    clicks++;
+    move += step;
+
+    const offset = 40;
+
+    imgLeft.style.transform = `translateX(calc(-${offset}px + ${move}px))`;
+    imgRight.style.transform = `translateX(calc(${offset}px - ${move}px))`;
+
+    if (move > 120) {
+        heart.style.display = "none";
+        finalPhoto.style.display = "block";
+    }
+
+    if (clicks === maxClicks) {
+        page1.style.display = "none";
+        page2.style.display = "flex";
+    }
+});
+</script>
+
+</body>
+</html>
